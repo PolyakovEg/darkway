@@ -5,6 +5,7 @@ using UnityEngine.Video;
 
 public class CutScenePlayer : MonoBehaviour
 {
+    //TODO: сделать воспроизведение через отдельную функцию, на отдельных сценах!!!
     private VideoPlayer _videoPlayer;
 
     [SerializeField] private RawImage _image;
@@ -42,18 +43,16 @@ public class CutScenePlayer : MonoBehaviour
         
         if(_endTrigger.IsCollided && _videoPlayer.isPlaying == false)
         {
-
-            _image.enabled = true;
-
             if (Radio.TrackListenedNumber == Radio.RadioNumber)
             {
                 Debug.Log("Истинный конец!");
             }
             else
             {
+                _image.enabled = true;
                 _videoPlayer.clip = _fakeEndingClip;
+                _videoPlayer.Play();
             }
-            _videoPlayer.Play();
         }
     }
 }
