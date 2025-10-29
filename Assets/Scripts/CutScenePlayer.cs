@@ -5,6 +5,33 @@ using UnityEngine.Video;
 
 public class CutScenePlayer : MonoBehaviour
 {
+    public string NextScene;
+
+    public VideoClip Clip;
+
+    private VideoPlayer _videoPlayer;
+
+    private void Awake()
+    {
+        _videoPlayer = GetComponent<VideoPlayer>();
+        _videoPlayer.frame = 0;
+    }
+
+    private void Start()
+    {
+        _videoPlayer.clip = Clip;
+        _videoPlayer.Play();
+    }
+
+    void Update()
+    {
+        if (_videoPlayer.frame > 0 && (ulong)_videoPlayer.frame >= _videoPlayer.frameCount - 1)
+        {
+            SceneManager.LoadScene(NextScene);
+        }
+    }
+
+    /*
     //TODO: сделать воспроизведение через отдельную функцию, на отдельных сценах!!!
     private VideoPlayer _videoPlayer;
 
@@ -54,5 +81,5 @@ public class CutScenePlayer : MonoBehaviour
                 _videoPlayer.Play();
             }
         }
-    }
+    }*/
 }

@@ -1,14 +1,23 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndTrigger : MonoBehaviour
 {
-    public bool IsCollided { get; private set; }
+    public string FakeEndScene;
+    public string TrueEndScene;
+
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Player"))
         {
-            IsCollided = true;
+            if (Radio.TrackListenedNumber == Radio.RadioNumber)
+            {
+                SceneManager.LoadScene(TrueEndScene);
+            }
+            else
+            {
+                SceneManager.LoadScene(FakeEndScene);
+            }
         }
     }
 }
